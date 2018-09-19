@@ -30,6 +30,13 @@
         state=present
         regexp=^LANG=
         line='LANG="ja_JP.UTF-8"'
+    - name: install ntp
+      yum: name=ntp state=latest
+    - name: change /etc/adjtime
+      replace: >-
+        dest='/etc/adjtime'
+        regexp='LOCAL'
+        replace='UTC'
     - name: install remi repository
       command: rpm -Uvh --force http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
     - name: install man
